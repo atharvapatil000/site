@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Princess & The Commoner - A Modern Fairytale</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+
+        body {
+            background-color: #fff9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Storybook Container */
+        .storybook {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Decorative elements */
+        .storybook::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid #e8c4c4;
+            pointer-events: none;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #f0d8d8;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffd6d6 0%, #fff 100%);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: #a83f3f;
+            margin-bottom: 10px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .header p.subtitle {
+            font-style: italic;
+            color: #888;
+            font-size: 1.2rem;
+        }
+
+        /* Story Pages */
+        .story-page {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 60px;
+            position: relative;
+            min-height: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: -30px;
+            right: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Even pages (right side) */
+        .story-page:nth-child(even) .page-content {
+            flex-direction: row-reverse;
+        }
+
+        .page-content {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .page-image {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            overflow: hidden;
+            border: 8px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .page-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .page-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .page-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .page-text {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: #a83f3f;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #e8c4c4;
+        }
+
+        .page-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .page-description p {
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #f0d8d8;
+            margin-top: 30px;
+            font-style: italic;
+            color: #888;
+            background: linear-gradient(135deg, #fff 0%, #ffd6d6 100%);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-content {
+                flex-direction: column;
+            }
+            
+            .story-page:nth-child(even) .page-content {
+                flex-direction: column;
+            }
+            
+            .page-image {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Decorative elements */
+        .heart {
+            position: absolute;
+            color: #ff6b6b;
+            opacity: 0.2;
+            font-size: 1.5rem;
+            z-index: -1;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .heart-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .heart-2 { top: 30%; right: 8%; animation-delay: 1s; }
+        .heart-3 { bottom: 20%; left: 7%; animation-delay: 2s; }
+        .heart-4 { bottom: 40%; right: 5%; animation-delay: 3s; }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Fancy first letter */
+        .first-letter {
+            float: left;
+            font-size: 3.5rem;
+            line-height: 3rem;
+            padding-right: 8px;
+            color: #a83f3f;
+            font-weight: bold;
+        }
+
+        /* Navigation */
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #a83f3f;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="storybook">
+        <!-- Decorative hearts -->
+        <div class="heart heart-1">❤</div>
+        <div class="heart heart-2">❤</div>
+        <div class="heart heart-3">❤</div>
+        <div class="heart heart-4">❤</div>
+
+        <!-- Header -->
+        <header class="header">
+            <h1>The Princess & The Commoner</h1>
+            <p class="subtitle">A Modern Fairytale in Eleven Chapters</p>
+        </header>
+
+        <!-- Chapter 1 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="princ.jpeg.jpeg" alt="Beautiful princess looking thoughtful">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">1. The Lonely Princess</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">O</span>nce upon a time, there lived a princess of unmatched beauty. Though many sought her hand, none could win her heart. Past loves had disappointed her, leaving her cautious. She dreamed of someone who would cherish her kindness, not just admire her beauty.</p>
+                        <p>Years passed with no suitor good enough. The princess grew lonely in her castle, wondering if true love existed for her.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">1</span>
+        </section>
+
+        <!-- Chapter 2 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="com.jpeg.jpeg" alt="Commoner studying alone">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">2. The Ordinary Man</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">I</span>n a nearby state lived a common man - no title, no fortune, just a kind heart and curious mind. He spent his days reading books and helping in his family's shop.</p>
+                        <p>After his own heartbreak, he'd nearly given up on love. The dating apps felt empty, conversations shallow. He longed for someone genuine who would understand him completely.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">2</span>
+        </section>
+
+        <!-- Chapter 3 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="snap.jpeg" alt="Dating app match notification">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">3. A Fateful Swipe</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">O</span>ne ordinary evening, their lives changed forever. The commoner swiped right on a beautiful profile, not knowing it was the princess in disguise. She matched back instantly.</p>
+                        <p>Their first conversation lasted hours. The princess laughed at his jokes. The commoner was captivated by her intelligence. Neither could explain the immediate connection they felt.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">3</span>
+        </section>
+
+        <!-- Chapter 4 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="school.jpeg" alt="Phones showing late night chat">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">4. Midnight Conversations</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">N</span>ight after night, they talked under the stars. The princess shared palace secrets. The commoner told town tales. They discovered shared passions - books, music, stargazing.</p>
+                        <p>When he sent his special questionnaire, her delayed reply made him anxious. But when her answers came, they were worth the wait - thoughtful, honest, and surprisingly playful.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">4</span>
+        </section>
+
+        <!-- Chapter 5 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="spotify.jpeg" alt="Social media connections">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">5. Digital Discoveries</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">A</span>s they moved to Snapchat, surprises unfolded. They shared the same birth month! The princess secretly checked his LinkedIn, making him blush when he found out.</p>
+                        <p>Their Spotify playlists matched 72%. The commoner deleted the dating app, realizing no one else compared. The princess found herself smiling at her phone constantly.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">5</span>
+        </section>
+
+        <!-- Chapter 6 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="meet1.jpeg" alt="Train station meeting">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">6. The First Meeting</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">O</span>n September 9th at 6:45 PM, they met at the station. When the commoner saw her, his breath caught - she was even more beautiful in person.</p>
+                        <p>At the cafe, conversation flowed effortlessly. Then came the shocking discovery when he saw her home - not a house, but a palace! His sweet online crush was actual royalty.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">6</span>
+        </section>
+
+        <!-- Chapter 7 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="holding.jpeg" alt="Couple under willow tree">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">7. Secret Meetings</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">T</span>hey began meeting secretly under an old willow tree. She brought palace cookies. They talked for hours, sharing dreams and childhood memories.</p>
+                        <p>The princess realized this commoner saw her truly - not as a prize to win, but as a person to love. Their goodbye kiss before his departure was magical.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">7</span>
+        </section>
+
+        <!-- Chapter 8 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="sel.jpeg" alt="Handwritten love letter">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">8. The Love Letter</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">D</span>uring their separation, the commoner poured his heart into a letter. On November 4th, he gave it to her with a stuffed toy - "our first child," he joked nervously.</p>
+                        <p>Trembling, the princess read his words. No one had ever expressed such sincere devotion. With tears in her eyes, she said yes to being his girlfriend.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">8</span>
+        </section>
+
+        <!-- Chapter 9 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="Dec.jpeg" alt="Couple in winter">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">9. A Winter Together</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">F</span>rom December to February, they were inseparable. They had their first fight and made up stronger.</p>
+                        <p>They celebrated their first holidays together, exchanging simple but meaningful moments. The princess realized she'd never been happier.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">9</span>
+        </section>
+
+        <!-- Chapter 10 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="trek.jpeg" alt="Couple discussing future">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">10. Dreams of Forever</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">I</span>n March, something remarkable happened - the princess, who had never discussed marriage with anyone, found herself planning a future with her commoner.</p>
+                        <p>They imagined a little cottage with a library, travels to distant lands. For the first time, both saw a clear path to happiness - together.</p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">10</span>
+        </section>
+
+        <!-- Chapter 11 -->
+        <section class="story-page">
+            <div class="page-content">
+                <div class="page-image">
+                    <img src="kiss.jpeg" alt="Couple happily ever after">
+                </div>
+                <div class="page-text">
+                    <h2 class="page-title">11. Happily Ever After</h2>
+                    <div class="page-description">
+                        <p><span class="first-letter">A</span>nd so the princess who thought she'd never find love, and the commoner who believed he wasn't worthy, created their own fairytale.</p>
+                        <p>Their story continues to grow each day - not perfect, but perfectly theirs. For true love isn't about palaces or titles, but finding the person who makes your heart feel at home.</p>
+                        <p><strong>The End... or rather, The Beginning.</strong></p>
+                    </div>
+                </div>
+            </div>
+            <span class="page-number">11</span>
+        </section>
+    </div>
+</body>
+</html>
